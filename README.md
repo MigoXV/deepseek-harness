@@ -36,6 +36,17 @@ pnpm dsh web
 
 `pnpm run build` prepares the repository artifacts. `pnpm dsh web` uses those built artifacts without rebuilding.
 
+### Run with Docker
+
+Build the included Dockerfile from a checkout to run the same source revision in a container:
+
+```sh
+docker build -t deepseek-harness .
+docker run --rm -p 3080:3080 -v dsh-home:/var/lib/dsh -v "$PWD":/workspace deepseek-harness
+```
+
+The image builds the source during `docker build` and listens on all interfaces by default. Mount `/var/run/docker.sock` when the agent needs to control the host Docker daemon.
+
 ## Community and support
 
 - Feel free to submit feedback or bug reports through [GitHub Discussions](https://github.com/deepseek-ai/deepseek-harness/discussions).

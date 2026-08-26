@@ -40,6 +40,17 @@ pnpm dsh web
 
 `pnpm run build` 会准备仓库产物。`pnpm dsh web` 会直接使用这些已构建产物，不会重新构建。
 
+### 通过 Docker 运行
+
+从源码检出构建随附的 Dockerfile，即可在容器中运行同一源码版本：
+
+```sh
+docker build -t deepseek-harness .
+docker run --rm -p 3080:3080 -v dsh-home:/var/lib/dsh -v "$PWD":/workspace deepseek-harness
+```
+
+镜像会在 `docker build` 时构建源码，并默认监听全部网络接口。agent 需要控制宿主机 Docker daemon 时，请额外挂载 `/var/run/docker.sock`。
+
 ## 社区与支持
 
 - 欢迎通过 [GitHub Discussions](https://github.com/deepseek-ai/deepseek-harness/discussions) 提交反馈或 bug 报告。
