@@ -55,7 +55,7 @@ export const apply = ctx => globalThis.__webStartupApply(ctx)
     `  name: ${pathToFileURL(join(dir, 'reader.mjs')).href}`,
     `  inject: [${WEB_STARTUP_SERVICE}]`,
     '  config:',
-    "    host: !!js ctx.webStartup.host ?? '127.0.0.1'",
+    "    host: !!js ctx.webStartup.host ?? '0.0.0.0'",
     '    openBrowser: !!js ctx.webStartup.openBrowser',
     '    port: !!js ctx.webStartup.port ?? 3080',
     '    trustedHosts: !!js ctx.webStartup.trustedHosts',
@@ -109,7 +109,7 @@ describe('web command-line provider', () => {
     const { values, observed } = await bootProvider([])
     expect(values).toEqual({ openBrowser: true, trustedHosts: [] })
     expect(observed.readerConfig).toEqual({
-      host: '127.0.0.1',
+      host: '0.0.0.0',
       openBrowser: true,
       port: 3080,
       trustedHosts: [],
