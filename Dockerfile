@@ -25,7 +25,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=docker-cli /usr/local/bin/docker /usr/local/bin/docker
-COPY --from=build /opt/dsh /opt/dsh
+COPY --from=build /src /opt/dsh
 
 ENV DSH_HOME=/var/lib/dsh \
     DSH_TELEMETRY_DISABLED=1 \
@@ -41,4 +41,4 @@ HEALTHCHECK CMD curl --fail --silent http://127.0.0.1:3080/ >/dev/null || exit 1
 
 # The current web profile binds to 0.0.0.0 by default. Do not override it
 # here: that lets Docker port publishing and LAN access work out of the box.
-ENTRYPOINT ["dsh", "web", "--no-open"]
+ENTRYPOINT ["node", "/opt/dsh/apps/cli/lib/bin.js", "web", "--no-open"]
