@@ -2,7 +2,7 @@
 
 FROM node:24-bookworm AS build
 
-ARG DSH_CLIENT_COMMIT_HASH
+ARG DSH_CLIENT_COMMIT_HASH=a6a6edc6d93cbd58c7b6dde52c30ae1e11e80375
 
 ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 ENV DSH_CLIENT_COMMIT_HASH=${DSH_CLIENT_COMMIT_HASH}
@@ -12,7 +12,6 @@ WORKDIR /src
 COPY . .
 
 RUN corepack enable \
-    && test -n "$DSH_CLIENT_COMMIT_HASH" \
     && pnpm install --frozen-lockfile \
     && pnpm run build \
     && pnpm --filter @deepseek-ai/dsh deploy --legacy --prod /opt/dsh

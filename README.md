@@ -41,11 +41,11 @@ pnpm dsh web
 Build the included Dockerfile from a checkout to run the same source revision in a container:
 
 ```sh
-docker build --build-arg DSH_CLIENT_COMMIT_HASH="$(git rev-parse HEAD)" -t deepseek-harness .
+docker build -t deepseek-harness .
 docker run --rm -p 3080:3080 -v dsh-home:/var/lib/dsh -v "$PWD":/workspace deepseek-harness
 ```
 
-The image builds the source during `docker build` and embeds the supplied source revision in the browser artifacts. It listens on all interfaces by default. Mount `/var/run/docker.sock` when the agent needs to control the host Docker daemon.
+The image builds the source during `docker build` and embeds this checkout's source revision in the browser artifacts. It listens on all interfaces by default. Mount `/var/run/docker.sock` when the agent needs to control the host Docker daemon.
 
 ## Community and support
 

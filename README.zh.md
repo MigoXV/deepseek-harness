@@ -45,11 +45,11 @@ pnpm dsh web
 从源码检出构建随附的 Dockerfile，即可在容器中运行同一源码版本：
 
 ```sh
-docker build --build-arg DSH_CLIENT_COMMIT_HASH="$(git rev-parse HEAD)" -t deepseek-harness .
+docker build -t deepseek-harness .
 docker run --rm -p 3080:3080 -v dsh-home:/var/lib/dsh -v "$PWD":/workspace deepseek-harness
 ```
 
-镜像会在 `docker build` 时构建源码，并把传入的源码提交号写入浏览器产物；它默认监听全部网络接口。agent 需要控制宿主机 Docker daemon 时，请额外挂载 `/var/run/docker.sock`。
+镜像会在 `docker build` 时构建源码，并把当前源码检出的提交号写入浏览器产物；它默认监听全部网络接口。agent 需要控制宿主机 Docker daemon 时，请额外挂载 `/var/run/docker.sock`。
 
 ## 社区与支持
 
